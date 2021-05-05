@@ -1,0 +1,54 @@
+drop schema musica_app;
+create schema musica_app;
+use musica_app;
+
+CREATE TABLE IF NOT EXISTS`personas` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `nombre` VARCHAR(100) NOT NULL,
+  `contraseña` VARCHAR(100) NOT NULL,
+  `administrador` VARCHAR(45) NOT NULL,
+ `contribuidor` bool not null,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+
+CREATE TABLE IF NOT EXISTS`genero` (
+id int not null auto_increment,
+nombre varchar(45),
+descripcion varchar(450),
+primary key(id)
+);
+
+CREATE TABLE IF NOT EXISTS`subgenero` (
+id int not null auto_increment,
+nombre varchar(45),
+descripcion varchar(45),
+genero int not null,
+primary key(id),
+constraint genero_id foreign key (genero) references genero(id)  
+);
+
+
+
+CREATE TABLE IF NOT EXISTS`canciones` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `nombre` VARCHAR(100) NOT NULL,
+  `artista` VARCHAR(100) NOT NULL,
+  `duracion` VARCHAR(45) NOT NULL,
+ `imagen` varchar(50) not null,
+ spotify_api_uri varchar(36) not null,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+select *from canciones;
+
+CREATE TABLE IF NOT EXISTS`subgenero_cancion` (
+id int not null auto_increment,
+id_subgenero int not null,
+id_cancion int not null ,
+primary key(id),
+constraint subgenero foreign key (id_subgenero) references subgenero(id),
+constraint cancion foreign key (id_cancion) references canciones(id)
+);
